@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'home_page.dart';
 
 void main() {
@@ -7,7 +6,7 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -20,39 +19,40 @@ class MyApp extends StatelessWidget {
 }
 
 class RootPage extends StatefulWidget {
-  const RootPage({super.key});
+  const RootPage({Key? key}) : super(key: key);
 
   @override
   State<RootPage> createState() => _RootPageState();
 }
 
 class _RootPageState extends State<RootPage> {
-  int currentPage=0;
+  int currentPage = 0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('flutter'),
       ),
-      body: HomePage(),
+      body: const HomePage(),
       floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            debugPrint("floating action button");
-          },
-          child: const Icon(Icons.add)),
-      bottomNavigationBar: NavigationBar(
-        backgroundColor: Colors.amber,
-        destinations: const[
-          NavigationDestination(icon:Icon(Icons.home), label: "home"),
-          NavigationDestination(icon:Icon(Icons.person), label: "profile"),
-           
-        ],
-        onDestinationSelected: (int index){
-         setState(() {
-            currentPage = index; 
-         });
+        onPressed: () {
+          debugPrint("floating action button");
         },
-        selectedIndex: currentPage,
+        child: const Icon(Icons.add),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: Colors.amber,
+        items: const [
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
+          BottomNavigationBarItem(icon: Icon(Icons.person), label: "Profile"),
+        ],
+        currentIndex: currentPage,
+        onTap: (int index) {
+          setState(() {
+            currentPage = index;
+          });
+        },
       ),
     );
   }
